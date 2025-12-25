@@ -1,18 +1,17 @@
- * {
+  * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
         
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: #f5f7fa;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
-            color: #333;
         }
         
         .payment-container {
@@ -22,50 +21,115 @@
             background: white;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
         }
         
-        .payment-container:hover {
-            transform: translateY(-5px);
-        }
-        
+        /* Left Side - Card Preview */
         .payment-left {
             flex: 1;
             padding: 40px;
-            background: linear-gradient(135deg, #4776E6 0%, #8E54E9 100%);
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
             color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
         }
         
+        .left-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .payment-left p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-bottom: 30px;
+            font-size: 15px;
+        }
+        
+        .card-preview {
+            background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-chip {
+            width: 50px;
+            height: 35px;
+            background: linear-gradient(45deg, #f1c40f, #f39c12);
+            border-radius: 6px;
+            margin-bottom: 25px;
+        }
+        
+        .card-number {
+            font-size: 20px;
+            letter-spacing: 3px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-weight: 500;
+        }
+        
+        .card-details-preview {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-top: 25px;
+        }
+        
+        .card-logo {
+            position: absolute;
+            right: 25px;
+            top: 25px;
+            font-size: 30px;
+            opacity: 0.9;
+        }
+        
+        .left-features {
+            list-style: none;
+            margin-top: 40px;
+        }
+        
+        .left-features li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .left-features i {
+            margin-right: 12px;
+            font-size: 18px;
+            color: #3498db;
+        }
+        
+        /* Right Side - Payment Form */
         .payment-right {
             flex: 1.2;
             padding: 40px;
         }
         
         .payment-header {
-            text-align: center;
             margin-bottom: 30px;
         }
         
         .payment-header h1 {
             font-size: 28px;
-            margin-bottom: 10px;
-            color: #2d2d2d;
+            color: #2c3e50;
+            margin-bottom: 8px;
             font-weight: 700;
         }
         
         .payment-header p {
-            color: #666;
-            font-size: 16px;
+            color: #7f8c8d;
+            font-size: 15px;
         }
         
         .wallet-methods {
             display: flex;
-            justify-content: center;
-            gap: 20px;
+            gap: 15px;
             margin-bottom: 30px;
         }
         
@@ -73,45 +137,43 @@
             flex: 1;
             padding: 15px;
             border: 2px solid #e0e0e0;
-            border-radius: 12px;
+            border-radius: 10px;
             background: white;
             cursor: pointer;
             transition: all 0.3s;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
+            gap: 10px;
             color: #555;
             font-weight: 600;
             font-size: 14px;
         }
         
         .wallet-btn i {
-            font-size: 28px;
-            margin-bottom: 8px;
+            font-size: 24px;
         }
         
-        .wallet-btn:hover, .wallet-btn.active {
-            border-color: #4776E6;
-            background-color: #f0f4ff;
-            color: #4776E6;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(71, 118, 230, 0.1);
+        .wallet-btn.active {
+            border-color: #3498db;
+            background-color: #f0f8ff;
+            color: #3498db;
         }
         
         .divider {
             display: flex;
             align-items: center;
             margin: 30px 0;
-            color: #888;
+            color: #95a5a6;
             font-size: 14px;
         }
         
-        .divider::before, .divider::after {
+        .divider::before,
+        .divider::after {
             content: '';
             flex: 1;
             height: 1px;
-            background: #e0e0e0;
+            background: #ecf0f1;
         }
         
         .divider span {
@@ -119,31 +181,31 @@
         }
         
         .form-group {
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
         
         .form-label {
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
-            color: #444;
+            color: #2c3e50;
+            font-size: 14px;
         }
         
         .form-input {
             width: 100%;
-            padding: 16px;
-            border: 2px solid #e0e0e0;
+            padding: 15px;
+            border: 2px solid #ecf0f1;
             border-radius: 10px;
-            font-size: 16px;
+            font-size: 15px;
             transition: all 0.3s;
-            background-color: #f9f9f9;
+            background-color: white;
         }
         
         .form-input:focus {
-            border-color: #4776E6;
-            background-color: white;
+            border-color: #3498db;
             outline: none;
-            box-shadow: 0 0 0 3px rgba(71, 118, 230, 0.1);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
         }
         
         .card-details {
@@ -155,80 +217,87 @@
             flex: 1;
         }
         
+        /* Bank Logos Section */
         .qr-section {
-            text-align: center;
-            margin: 10px 0;
-            padding: 10px;
-            background: linear-gradient(135deg, #f8f9ff 0%, #eef1ff 100%);
-            border-radius: 15px;
-            border: 2px dashed gray;
-        }
-
-        .qr-section h3 {
-            color: #2d2d2d;
-            margin-bottom: 10px;
-            font-size: 15px;
-        }
-
-        .qr-section p {
-            color: #666;
-            margin-bottom: 20px;
-            font-size: 15px;
-        }
-
-        .qr-code-container {
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 15px;
-            background: white;
+            background: #f8fafc;
             border-radius: 12px;
-            padding: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 20px rgba(71, 118, 230, 0.15);
-            border: 1px solid #e0e6ff;
-        }
-
-        .qr-image {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            border-radius: 8px;
-        }
-
-        .qr-hint {
-            display: inline-block;
-            background: linear-gradient(135deg, #4776E6 0%, #8E54E9 100%);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 25px;
-            font-weight: 600;
-            font-size: 14px;
-            margin-top: 10px;
-            box-shadow: 0 4px 12px rgba(240, 240, 240, 0.2);
-        }
-
-        /* If the image isn't showing, add this troubleshooting */
-        .qr-troubleshoot {
-            display: none;
-            background: #ffebee;
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 10px;
-            color: #c62828;
-            font-size: 12px;
+            padding: 25px;
+            margin: 25px 0;
+            border: 1px solid #e8f4fc;
         }
         
+        .qr-section h3 {
+            color: #2c3e50;
+            margin-bottom: 12px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .qr-section p {
+            color: #7f8c8d;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .bank-logos-simple {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .bank-logo-simple {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            height: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .bank-logo-simple:hover {
+            border-color: #3498db;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.1);
+        }
+        
+        .bank-logo-simple img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+        
+        .bank-logo-simple span {
+            font-size: 12px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .qr-hint {
+            text-align: center;
+            color: #3498db;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+        
+        /* Pay Now Button */
         .pay-btn {
             width: 100%;
             padding: 18px;
-            background: linear-gradient(135deg, #4776E6 0%, #8E54E9 100%);
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
             color: white;
             border: none;
             border-radius: 10px;
-            font-size: 18px;
-            font-weight: 700;
+            font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
             display: flex;
@@ -239,14 +308,12 @@
         }
         
         .pay-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(71, 118, 230, 0.3);
+            background: linear-gradient(135deg, #2980b9 0%, #2573a7 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
         }
         
-        .pay-btn:active {
-            transform: translateY(0);
-        }
-        /* Payment Success Modal */
+        /* Success Modal */
         .payment-success-modal {
             position: fixed;
             top: 0;
@@ -262,12 +329,12 @@
             visibility: hidden;
             transition: all 0.3s ease;
         }
-
+        
         .payment-success-modal.active {
             opacity: 1;
             visibility: visible;
         }
-
+        
         .success-modal-content {
             background: white;
             border-radius: 20px;
@@ -275,207 +342,47 @@
             text-align: center;
             max-width: 400px;
             width: 90%;
-            transform: translateY(20px) scale(0.95);
-            opacity: 0;
+            transform: translateY(20px);
             transition: all 0.4s ease;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
-
+        
         .payment-success-modal.active .success-modal-content {
-            transform: translateY(0) scale(1);
-            opacity: 1;
-        }
-
-        .success-animation {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 25px;
-            position: relative;
-        }
-
-        .success-animation-circle {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
-            animation: circlePulse 2s infinite;
-        }
-
-        .success-animation-check {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            color: white;
-            font-size: 48px;
-            animation: checkScale 0.6s ease 0.3s forwards;
-        }
-
-        .success-modal-content h2 {
-            color: #2E7D32;
-            font-size: 28px;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-
-        .success-modal-content p {
-            color: #666;
-            font-size: 16px;
-            margin-bottom: 10px;
-            line-height: 1.5;
-        }
-
-        .success-details {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 25px 0;
-            text-align: left;
-        }
-
-        .success-detail-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eaeaea;
-        }
-
-        .success-detail-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .success-detail-label {
-            color: #777;
-            font-weight: 500;
-        }
-
-        .success-detail-value {
-            color: #333;
-            font-weight: 600;
-        }
-
-        .success-modal-btn {
-            background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 20px;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .success-modal-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(76, 175, 80, 0.3);
-        }
-
-        .success-modal-btn:active {
             transform: translateY(0);
         }
-        .pay-btn {
-         transition: all 0.3s ease ;
-        }
         
-        .left-title {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-        
-        .left-features {
-            list-style: none;
-            margin-top: 40px;
-        }
-        
-        .left-features li {
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            font-size: 16px;
-        }
-        
-        .left-features i {
-            margin-right: 15px;
-            font-size: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            width: 40px;
-            height: 40px;
+        .success-animation {
+            width: 80px;
+            height: 80px;
+            background: #27ae60;
+            border-radius: 50%;
+            margin: 0 auto 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 50%;
-        }
-        
-        .card-preview {
-            margin-top: 30px;
-            background: linear-gradient(135deg, #2c3e50 0%, #4a6491 100%);
-            border-radius: 15px;
-            padding: 25px;
             color: white;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            position: relative;
-            overflow: hidden;
+            font-size: 40px;
         }
         
-        .card-preview::before {
-            content: '';
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            top: -150px;
-            right: -100px;
+        .success-modal-content h2 {
+            color: #27ae60;
+            margin-bottom: 15px;
         }
         
-        .card-chip {
-            width: 50px;
-            height: 40px;
-            background: linear-gradient(135deg, #ffcc00 0%, #ff9900 100%);
-            border-radius: 8px;
-            margin-bottom: 30px;
+        .success-modal-btn {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 15px;
+            cursor: pointer;
+            margin-top: 20px;
         }
         
-        .card-number {
-            font-size: 22px;
-            letter-spacing: 2px;
-            margin-bottom: 20px;
-            font-family: 'Courier New', monospace;
-        }
-        
-        .card-details-preview {
-            display: flex;
-            justify-content: space-between;
-            font-size: 16px;
-        }
-        
-        .card-logo {
-            position: absolute;
-            right: 25px;
-            bottom: 25px;
-            font-size: 32px;
-            color: rgba(255, 255, 255, 0.9);
-        }
-        
-        /* Responsive Design */
+        /* Responsive */
         @media (max-width: 900px) {
             .payment-container {
                 flex-direction: column;
-                max-width: 600px;
-            }
-            
-            .payment-left, .payment-right {
-                padding: 30px;
             }
             
             .wallet-methods {
@@ -483,80 +390,20 @@
             }
             
             .wallet-btn {
-                min-width: calc(50% - 20px);
+                min-width: calc(50% - 10px);
             }
         }
         
         @media (max-width: 600px) {
+            .bank-logos-simple {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
             .card-details {
                 flex-direction: column;
-                gap: 0;
             }
             
             .wallet-btn {
                 min-width: 100%;
             }
-            
-            .left-title {
-                font-size: 26px;
-            }
-            
-            .payment-header h1 {
-                font-size: 24px;
-            }
-            
-            .payment-left, .payment-right {
-                padding: 25px;
-            }
-        }
-        
-        @media (max-width: 400px) {
-            body {
-                padding: 10px;
-            }
-            
-            .payment-left, .payment-right {
-                padding: 20px;
-            }
-            
-            .qr-code {
-                width: 120px;
-                height: 120px;
-            }
-        }
-        
-        /* Animation for credit card preview */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    @keyframes circlePulse {
-        0% {
-            transform: scale(1);
-            box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
-        }
-        70% {
-            transform: scale(1.05);
-            box-shadow: 0 0 0 20px rgba(76, 175, 80, 0);
-        }
-        100% {
-            transform: scale(1);
-            box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
-        }
-    }
-
-    @keyframes checkScale {
-        0% {
-            transform: translate(-50%, -50%) scale(0);
-        }
-        50% {
-            transform: translate(-50%, -50%) scale(1.2);
-        }
-        100% {
-            transform: translate(-50%, -50%) scale(1);
-        }
-    }
-        
-        .card-preview {
-            animation: fadeIn 0.8s ease-out;
         }
