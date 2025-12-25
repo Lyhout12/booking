@@ -350,6 +350,63 @@
             transform: translateY(0);
         }
         
+        /* Booking Details in Success Modal */
+        .booking-details {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: left;
+            border: 1px solid #eaeaea;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .detail-label {
+            color: #666;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .detail-value {
+            color: #333;
+            font-weight: 600;
+            text-align: right;
+            font-size: 14px;
+        }
+
+        .total-row {
+            background: #e8f5e9;
+            margin: 15px -20px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            border: 1px solid #c8e6c9;
+        }
+
+        .total-row .detail-label {
+            color: #2e7d32;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .total-row .detail-value {
+            color: #2e7d32;
+            font-weight: 700;
+            font-size: 18px;
+        }
+        
         .success-animation {
             width: 80px;
             height: 80px;
@@ -377,6 +434,27 @@
             font-size: 15px;
             cursor: pointer;
             margin-top: 20px;
+        }
+            .success-note {
+        background: #e8f4fc;
+        border-radius: 8px;
+        padding: 15px;
+        margin: 20px 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border-left: 4px solid #3498db;
+    }
+
+        .success-note i {
+            color: #3498db;
+            font-size: 20px;
+        }
+
+        .success-note p {
+            color: #2c3e50;
+            font-size: 14px;
+            margin: 0;
         }
         
         /* Responsive */
