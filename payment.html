@@ -127,7 +127,7 @@
         </div>
     </div>
     
-    <!-- Success Modal - UPDATED: Removed hotel, guests, and price -->
+    <!-- Success Modal  -->
     <div class="payment-success-modal" id="successModal">
         <div class="success-modal-content">
             <div class="success-animation">
@@ -152,6 +152,10 @@
                 <div class="detail-row">
                     <span class="detail-label">Card Ending:</span>
                     <span class="detail-value" id="cardEnding">3456</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Admin Hotel:</span>
+                    <span class="detail-value" id="adminHotel">Admin Hotel</span>
                 </div>
             </div>
             
@@ -293,7 +297,7 @@
             document.getElementById('bookingRef').textContent = bookingRef;
             document.getElementById('paymentMethod').textContent = paymentMethod;
             document.getElementById('cardEnding').textContent = cardEnding;
-            // document.getElementById('admin').textContent = "Comfired by Admin";
+            document.getElementById('adminHotel').textContent = "Comfired by Admin";
             
             // Format and set payment date
             document.getElementById('paymentDate').textContent = 
