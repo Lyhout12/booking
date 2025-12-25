@@ -113,136 +113,239 @@
         </div>
     </div>
 
-    <script>
-        // Wallet button selection
-        const walletButtons = document.querySelectorAll('.wallet-btn');
-        walletButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                walletButtons.forEach(btn => btn.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-        
-        // Format card number input
-        const cardNumberInput = document.getElementById('cardNumber');
-        cardNumberInput.addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
-            let formattedValue = value.replace(/(\d{4})/g, '$1 ').trim();
-            e.target.value = formattedValue.substring(0, 19);
-            
-            // Update card preview
-            const cardPreview = document.querySelector('.card-number');
-            if (value.length > 0) {
-                cardPreview.textContent = formattedValue || '1234 5678 9012 3456';
-            } else {
-                cardPreview.textContent = '1234 5678 9012 3456';
-            }
-        });
-        
-        // Format expiry date input
-        const expiryInput = document.getElementById('expiryDate');
-        expiryInput.addEventListener('input', function(e) {
-            let value = e.target.value.replace(/[^0-9]/g, '');
-            if (value.length >= 2) {
-                value = value.substring(0, 2) + '/' + value.substring(2, 4);
-            }
-            e.target.value = value.substring(0, 5);
-        });
-        
-        // Update card holder name in preview
-        const cardHolderInput = document.getElementById('cardHolder');
-        cardHolderInput.addEventListener('input', function(e) {
-            const cardHolderPreview = document.querySelector('.card-details-preview div:first-child div:last-child');
-            cardHolderPreview.textContent = e.target.value.toUpperCase() || 'JOHN DOE';
-        });
-        
-        // Update expiry date in preview
-        expiryInput.addEventListener('input', function(e) {
-            const expiryPreview = document.querySelector('.card-details-preview div:last-child div:last-child');
-            expiryPreview.textContent = e.target.value || '12/25';
-        });
-        
-        // Form submission
-        const paymentForm = document.getElementById('paymentForm');
-        paymentForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Simple validation
-            const cardNumber = document.getElementById('cardNumber').value.replace(/\s/g, '');
-            const cardHolder = document.getElementById('cardHolder').value;
-            const expiryDate = document.getElementById('expiryDate').value;
-            const cvv = document.getElementById('cvv').value;
-            
-            if (cardNumber.length !== 16) {
-                alert('Please enter a valid 16-digit card number');
-                return;
-            }
-            
-            if (!cardHolder.trim()) {
-                alert('Please enter card holder name');
-                return;
-            }
-            
-            if (!expiryDate.match(/^(0[1-9]|1[0-2])\/([0-9]{2})$/)) {
-                alert('Please enter a valid expiry date in MM/YY format');
-                return;
-            }
-            
-            if (cvv.length < 3 || cvv.length > 4) {
-                alert('Please enter a valid CVV (3-4 digits)');
-                return;
-            }
-            
-            // Show success message
-            const payBtn = document.querySelector('.pay-btn');
-            const originalText = payBtn.innerHTML;
-            payBtn.innerHTML = '<i class="fas fa-check-circle"></i> Payment Successful!';
-            payBtn.style.background = 'linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%)';
-            
-            setTimeout(() => {
-                payBtn.innerHTML = originalText;
-                payBtn.style.background = 'linear-gradient(135deg, #4776E6 0%, #8E54E9 100%)';
-                paymentForm.reset();
-                
-                // Reset preview
-                document.querySelector('.card-number').textContent = '1234 5678 9012 3456';
-                document.querySelector('.card-details-preview div:first-child div:last-child').textContent = 'JOHN DOE';
-                document.querySelector('.card-details-preview div:last-child div:last-child').textContent = '12/25';
-                
-                // Reset wallet buttons
-                walletButtons.forEach(btn => btn.classList.remove('active'));
-                document.getElementById('googlePay').classList.add('active');
-            }, 3000);
-        });
-
-        // Add this to check if image loads successfully
-document.addEventListener('DOMContentLoaded', function() {
-    const qrImage = document.querySelector('.qr-image');
-    if (qrImage) {
-        qrImage.onerror = function() {
-            console.error('QR code image failed to load');
-            this.style.display = 'none';
-            
-            // Create fallback QR code
-            const container = this.parentElement;
-            const fallback = document.createElement('div');
-            fallback.innerHTML = `
-                <div style="background: linear-gradient(135deg, #4776E6 0%, #8E54E9 100%); 
-                           width: 150px; height: 150px; border-radius: 10px; 
-                           display: flex; flex-direction: column; align-items: center; 
-                           justify-content: center; color: white;">
-                    <i class="fas fa-qrcode" style="font-size: 50px; margin-bottom: 10px;"></i>
-                    <span style="font-size: 12px;">QR Code</span>
+    <!-- loading payment successfull -->
+    <div class="payment-success-modal" id="successModal">
+        <div class="success-modal-content">
+            <div class="success-animation">
+                <div class="success-animation-circle"></div>
+                <div class="success-animation-check">
+                    <i class="fas fa-check"></i>
                 </div>
-            `;
-            container.appendChild(fallback);
-        };
+            </div>
+            
+            <h2>Payment Successful!</h2>
+            <p>Your payment has been processed successfully.</p>
+            <p>A confirmation email has been sent to your registered email address.</p>
+            
+            <div class="success-details">
+                <div class="success-detail-item">
+                    <span class="success-detail-label">Transaction ID:</span>
+                    <span class="success-detail-value" id="transactionId">TXN-2024-789456</span>
+                </div>
+                <div class="success-detail-item">
+                    <span class="success-detail-label">Amount Paid:</span>
+                    <span class="success-detail-value">$249.99</span>
+                </div>
+                <div class="success-detail-item">
+                    <span class="success-detail-label">Date & Time:</span>
+                    <span class="success-detail-value" id="paymentDateTime">Loading...</span>
+                </div>
+                <div class="success-detail-item">
+                    <span class="success-detail-label">Payment Method:</span>
+                    <span class="success-detail-value" id="paymentMethod">Credit Card</span>
+                </div>
+            </div>
+            
+            <button class="success-modal-btn" id="closeSuccessModal">
+                <i class="fas fa-home"></i> Back to Home
+            </button>
+        </div>
+    </div>
+
+    <script>
+    // Wallet button selection
+    const walletButtons = document.querySelectorAll('.wallet-btn');
+    walletButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            walletButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+    
+    // Format card number input
+    const cardNumberInput = document.getElementById('cardNumber');
+    cardNumberInput.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+        let formattedValue = value.replace(/(\d{4})/g, '$1 ').trim();
+        e.target.value = formattedValue.substring(0, 19);
         
-        qrImage.onload = function() {
-            console.log('QR code image loaded successfully');
-        };
-    }
-});
-    </script>
+        // Update card preview
+        const cardPreview = document.querySelector('.card-number');
+        if (value.length > 0) {
+            cardPreview.textContent = formattedValue || '1234 5678 9012 3456';
+        } else {
+            cardPreview.textContent = '1234 5678 9012 3456';
+        }
+    });
+    
+    // Format expiry date input
+    const expiryInput = document.getElementById('expiryDate');
+    expiryInput.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/[^0-9]/g, '');
+        if (value.length >= 2) {
+            value = value.substring(0, 2) + '/' + value.substring(2, 4);
+        }
+        e.target.value = value.substring(0, 5);
+    });
+    
+    // Update card holder name in preview
+    const cardHolderInput = document.getElementById('cardHolder');
+    cardHolderInput.addEventListener('input', function(e) {
+        const cardHolderPreview = document.querySelector('.card-details-preview div:first-child div:last-child');
+        cardHolderPreview.textContent = e.target.value.toUpperCase() || 'JOHN DOE';
+    });
+    
+    // Update expiry date in preview
+    expiryInput.addEventListener('input', function(e) {
+        const expiryPreview = document.querySelector('.card-details-preview div:last-child div:last-child');
+        expiryPreview.textContent = e.target.value || '12/25';
+    });
+    
+    // Form submission - THIS IS THE NEW PART
+    const paymentForm = document.getElementById('paymentForm');
+    paymentForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Simple validation
+        const cardNumber = document.getElementById('cardNumber').value.replace(/\s/g, '');
+        const cardHolder = document.getElementById('cardHolder').value;
+        const expiryDate = document.getElementById('expiryDate').value;
+        const cvv = document.getElementById('cvv').value;
+        
+        if (cardNumber.length !== 16) {
+            alert('Please enter a valid 16-digit card number');
+            return;
+        }
+        
+        if (!cardHolder.trim()) {
+            alert('Please enter card holder name');
+            return;
+        }
+        
+        if (!expiryDate.match(/^(0[1-9]|1[0-2])\/([0-9]{2})$/)) {
+            alert('Please enter a valid expiry date in MM/YY format');
+            return;
+        }
+        
+        if (cvv.length < 3 || cvv.length > 4) {
+            alert('Please enter a valid CVV (3-4 digits)');
+            return;
+        }
+        
+        // Show loading state on button
+        const payBtn = document.querySelector('.pay-btn');
+        const originalText = payBtn.innerHTML;
+        payBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+        payBtn.disabled = true;
+        
+        // Simulate payment processing delay
+        setTimeout(() => {
+            // Reset button
+            payBtn.innerHTML = originalText;
+            payBtn.disabled = false;
+            
+            // Get selected payment method
+            let paymentMethod = 'Credit Card';
+            const activeWallet = document.querySelector('.wallet-btn.active');
+            if (activeWallet) {
+                paymentMethod = activeWallet.textContent.trim();
+            }
+            
+            // Set payment details in modal
+            document.getElementById('paymentMethod').textContent = paymentMethod;
+            
+            // Generate current date and time
+            const now = new Date();
+            const options = { 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+            document.getElementById('paymentDateTime').textContent = now.toLocaleDateString('en-US', options);
+            
+            // Generate random transaction ID
+            const transactionId = 'TXN-' + Date.now().toString().slice(-6) + Math.floor(Math.random() * 1000);
+            document.getElementById('transactionId').textContent = transactionId;
+            
+            // Show success modal with animation
+            const successModal = document.getElementById('successModal');
+            successModal.classList.add('active');
+            
+            // Prevent scrolling when modal is open
+            document.body.style.overflow = 'hidden';
+            
+            // Reset form after successful payment
+            paymentForm.reset();
+            
+            // Reset preview
+            document.querySelector('.card-number').textContent = '1234 5678 9012 3456';
+            document.querySelector('.card-details-preview div:first-child div:last-child').textContent = 'JOHN DOE';
+            document.querySelector('.card-details-preview div:last-child div:last-child').textContent = '12/25';
+            
+            // Reset wallet buttons
+            walletButtons.forEach(btn => btn.classList.remove('active'));
+            document.getElementById('googlePay').classList.add('active');
+            
+        }, 1500); // Simulate 1.5 second processing time
+    });
+
+    // Close modal functionality - NEW CODE
+    const closeSuccessModal = document.getElementById('closeSuccessModal');
+    const successModal = document.getElementById('successModal');
+
+    closeSuccessModal.addEventListener('click', function() {
+        successModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        // Optional: Redirect to home or confirmation page
+        window.location.href = 'index.html';
+    });
+
+    // Close modal when clicking outside
+    successModal.addEventListener('click', function(e) {
+        if (e.target === successModal) {
+            successModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && successModal.classList.contains('active')) {
+            successModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    });
+
+    // QR code fallback - KEEP THIS CODE (it was in your original)
+    document.addEventListener('DOMContentLoaded', function() {
+        const qrImage = document.querySelector('.qr-image');
+        if (qrImage) {
+            qrImage.onerror = function() {
+                console.error('QR code image failed to load');
+                this.style.display = 'none';
+                
+                // Create fallback QR code
+                const container = this.parentElement;
+                const fallback = document.createElement('div');
+                fallback.innerHTML = `
+                    <div style="background: linear-gradient(135deg, #4776E6 0%, #8E54E9 100%); 
+                               width: 150px; height: 150px; border-radius: 10px; 
+                               display: flex; flex-direction: column; align-items: center; 
+                               justify-content: center; color: white;">
+                        <i class="fas fa-qrcode" style="font-size: 50px; margin-bottom: 10px;"></i>
+                        <span style="font-size: 12px;">QR Code</span>
+                    </div>
+                `;
+                container.appendChild(fallback);
+            };
+            
+            qrImage.onload = function() {
+                console.log('QR code image loaded successfully');
+            };
+        }
+    });
+</script>
 </body>
 </html>

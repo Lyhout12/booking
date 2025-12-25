@@ -172,10 +172,12 @@
         
         .booking-btn {
             display: inline-block;
+            width: 230px;
+            height: 60px;
             background: linear-gradient(to right, #667eea, #764ba2);
             color: white;
             padding: 18px 50px;
-            font-size: 1.3rem;
+            font-size: 1.0rem;
             font-weight: bold;
             text-decoration: none;
             border-radius: 50px;
