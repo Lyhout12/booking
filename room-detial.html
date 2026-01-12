@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>phnone-penh</title>
+     <link rel="icon" href="img/download (2).png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="room-detail.css">
+    <link href="https://fonts.googleapis.com/css2?family=Ancizar+Serif:ital,wght@0,300..900;1,300..900&family=Playwrite+NG+Modern:wght@100..400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    
+</head>
+<body>
+    <div class="room-details-container">
+        <div class="room-card">
+            <div class="room-header">
+                <h1>Room Details</h1>
+                <div class="hotel-name-display" id="hotelName">Loading Hotel...</div>
+            </div>
+            
+            <div class="room-content">
+                <div class="room-image-section">
+                    <img id="roomImage" src="" alt="Hotel Room" class="room-image">
+                </div>
+                
+                <div class="room-info-section">
+                    <h2 class="room-title">Room Information</h2>
+                    <p class="room-description" id="roomDescription">
+                        Loading room description...
+                    </p>
+                    
+                    <div class="room-features">
+                        <h3><i class="fas fa-home"></i> Room Includes:</h3>
+                        <ul class="features-list">
+                            <li><i class="fas fa-check-circle"></i> Two queen-size beds</li>
+                            <li><i class="fas fa-check-circle"></i> Private balcony with city view</li>
+                            <li><i class="fas fa-check-circle"></i> En-suite bathroom with jacuzzi</li>
+                            <li><i class="fas fa-check-circle"></i> Living area with sofa and work desk</li>
+                            <li><i class="fas fa-check-circle"></i> Flat-screen TV with international channels</li>
+                            <li><i class="fas fa-check-circle"></i> Mini-bar and coffee/tea making facilities</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="price-section">
+                        <div class="price-card">
+                            <div class="price-title">One Bedroom Suite</div>
+                            <div class="price-amount" id="priceOneBed">$0.00</div>
+                            <div class="price-note">Per night</div>
+                        </div>
+                        <div class="price-card">
+                            <div class="price-title">Two Bedroom Suite</div>
+                            <div class="price-amount" id="priceTwoBed">$0.00</div>
+                            <div class="price-note">Per night (1.5× one bedroom)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="facilities-section">
+                <h2 class="facilities-title">
+                    <i class="fas fa-star"></i> Most Popular Facilities
+                </h2>
+                <div class="facilities-grid" id="facilitiesList">
+                    <!-- Facilities will be loaded here -->
+                </div>
+            </div>
+            
+            <div class="booking-section">
+                <button class="booking-btn" id="bookNowBtn">
+                    <i class="fas fa-calendar-check"></i> BOOKING NOW
+                </button>
+                <p class="booking-note">Click above to proceed to check-in and secure your reservation</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Default hotel data (if no URL parameters)
+        const defaultHotel = {
+            name: "Angkor Village Hotel",
+            price: 89.99,
+            image: "img/siemreap/angkor_village_hotel.jpg",
+            description: "Experience luxury in our spacious suite featuring modern amenities, elegant decor, and stunning views. Perfect for families or small groups seeking comfort and style."
+        };
+
+        // Facilities list
+        const facilities = [
+            "Outdoor swimming pool",
+            "Free Wifi",
+            "Airport shuttle",
+            "Family rooms",
+            "Spa & Wellness Center",
+            "Non-smoking rooms",
+            "Restaurant",
+            "Tea/Coffee Maker in All Rooms",
+            "Bar & Lounge",
+            "Very Good Breakfast",
+            "Fitness Center",
+            "Free Parking",
+            "24-hour Front Desk",
+            "Room Service",
+            "Laundry Service",
+            "Business Center"
+        ];
+
+        // Get URL parameters
+        function getUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                hotel: params.get('hotel') || defaultHotel.name,
+                price: parseFloat(params.get('price')) || defaultHotel.price,
+                image: params.get('image') || defaultHotel.image,
+                description: params.get('description') || decodeURIComponent(defaultHotel.description)
+            };
+        }
+
+        // Calculate two-bedroom price (1.5× one bedroom)
+        function calculateTwoBedroomPrice(oneBedroomPrice) {
+            return (oneBedroomPrice * 1.5).toFixed(2);
+        }
+
+        // Load hotel data from URL
+        function loadHotelData() {
+            const hotel = getUrlParams();
+            
+            // Update page content
+            document.getElementById('hotelName').textContent = hotel.name;
+            
+            // Set image with fallback
+            const roomImg = document.getElementById('roomImage');
+            roomImg.src = hotel.image;
+            roomImg.alt = hotel.name + " Room";
+            roomImg.onerror = function() {
+                this.src = "https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80";
+            };
+            
+            document.getElementById('roomDescription').textContent = hotel.description;
+            
+            // Format prices
+            document.getElementById('priceOneBed').textContent = `$${hotel.price.toFixed(2)}`;
+            
+            // Calculate and show two-bedroom price
+            const twoBedroomPrice = calculateTwoBedroomPrice(hotel.price);
+            document.getElementById('priceTwoBed').textContent = `$${twoBedroomPrice}`;
+            
+            // Update booking button link
+            const bookBtn = document.getElementById('bookNowBtn');
+            bookBtn.onclick = function() {
+                window.location.href = `check-in.html?hotel=${encodeURIComponent(hotel.name)}&price=${hotel.price}`;
+            };
+        }
+
+        // Load facilities list
+        function loadFacilities() {
+            const container = document.getElementById('facilitiesList');
+            
+            facilities.forEach(facility => {
+                const div = document.createElement('div');
+                div.className = 'facility-item';
+                div.innerHTML = `
+                    <i class="fas fa-check facility-icon"></i>
+                    <span>${facility}</span>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        // Initialize page
+        window.onload = function() {
+            loadHotelData();
+            loadFacilities();
+            
+            // Add a smooth entrance animation
+            document.querySelector('.room-card').style.opacity = '0';
+            document.querySelector('.room-card').style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                document.querySelector('.room-card').style.transition = 'all 0.6s ease';
+                document.querySelector('.room-card').style.opacity = '1';
+                document.querySelector('.room-card').style.transform = 'translateY(0)';
+            }, 100);
+        };
+        // In room-details.html, update the booking button click handler:
+        // bookBtn.onclick = function() {
+        //     window.location.href = `check-in.html?hotel=${encodeURIComponent(hotel.name)}&price=${hotel.price}`;
+        // };
+    </script>
+</body>
+</html>

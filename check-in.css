@@ -1,0 +1,303 @@
+  * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, white, rgb(235, 232, 232));
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .booking-container {
+            width: 100%;
+            max-width: 1250px;
+        }
+        
+        .booking-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .booking-header {
+            background: linear-gradient(135deg, #0066cc, #6bc4e4);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .booking-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .hotel-info {
+            background: #f8f9fa;
+            padding: 20px 30px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .hotel-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .hotel-price {
+            font-size: 1.2rem;
+            color: #0066cc;
+            font-weight: 600;
+        }
+        
+        .date-section {
+            padding: 30px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .date-display {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .date-column {
+            text-align: center;
+        }
+        
+        .date-column label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .date-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            transition: border-color 0.3s;
+        }
+        
+        .date-input:focus {
+            outline: none;
+            border-color: #0066cc;
+        }
+        
+        .date-formatted {
+            font-size: 0.9rem;
+            color: #6b7280;
+            font-weight: 500;
+        }
+        
+        .guest-section {
+            padding: 30px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .guest-control {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #f1f3f4;
+        }
+        
+        .guest-control:last-child {
+            border-bottom: none;
+        }
+        
+        .guest-label {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.1rem;
+        }
+        
+        .guest-subtitle {
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+        
+        .counter {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .counter-btn {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #0066cc;
+            background: white;
+            color: #0066cc;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .counter-btn:hover:not(:disabled) {
+            background: #0066cc;
+            color: white;
+        }
+        
+        .counter-btn:disabled {
+            border-color: #ccc;
+            color: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .counter-value {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #333;
+            min-width: 30px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .counter-value.changed {
+            transform: scale(1.2);
+            color: #0066cc;
+        }
+        
+        .price-section {
+            padding: 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .price-summary {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f1f3f4;
+        }
+        
+        .price-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .total-price {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #0066cc;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #e9ecef;
+        }
+        
+        .confirm-section {
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .confirm-btn {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 20px rgba(40, 167, 69, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .confirm-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(40, 167, 69, 0.4);
+        }
+        
+        .confirm-btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .destinations-section {
+            padding: 30px;
+            background: #f8f9fa;
+            text-align: center;
+        }
+        
+        .destinations-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .date-display {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .booking-title {
+                font-size: 2rem;
+            }
+            
+            .guest-control {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .counter {
+                align-self: flex-end;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .booking-header {
+                padding: 20px;
+            }
+            
+            .date-section, .guest-section, .price-section, .confirm-section {
+                padding: 20px;
+            }
+            
+            .confirm-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
